@@ -97,9 +97,9 @@ final class NoteWindow: NSWindow, NSWindowDelegate {
     @objc func deleteNote(_ sender: Any?) {
         if !data.text.isEmpty {
             let alert = NSAlert()
-            alert.messageText = "이 메모를 삭제할까요?"
-            alert.addButton(withTitle: "삭제")
-            alert.addButton(withTitle: "취소")
+            alert.messageText = "Delete this note?"
+            alert.addButton(withTitle: "Delete")
+            alert.addButton(withTitle: "Cancel")
             guard alert.runModal() == .alertFirstButtonReturn else { return }
         }
         App.shared.remove(self)
@@ -238,7 +238,7 @@ final class NoteView: NSView, NSTextViewDelegate {
         }
 
         if textView.string.isEmpty && !textView.isEditable {
-            let hint = NSAttributedString(string: "더블클릭해서 입력", attributes: [
+            let hint = NSAttributedString(string: "Double-click to type", attributes: [
                 .font: NSFont.systemFont(ofSize: 11), .foregroundColor: fill.readableText.withAlphaComponent(0.4),
             ])
             let s = hint.size()

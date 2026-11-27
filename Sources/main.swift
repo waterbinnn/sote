@@ -10,7 +10,7 @@ if let i = CommandLine.arguments.firstIndex(of: "--icon"), i + 1 < CommandLine.a
 
 // 개발용: `Sote --snapshot out.png` 로 모든 모양을 한 장의 이미지로 렌더링한다.
 if let i = CommandLine.arguments.firstIndex(of: "--snapshot"), i + 1 < CommandLine.arguments.count {
-    let samples = Style.allCases.map(\.sample) + ["오늘 할 일: 장보기, 세탁소 들르기, 엄마한테 전화하기. 내일은 꼭 운동 가자!"]
+    let samples = Style.allCases.map(\.sample) + ["To do today: groceries, drop off the dry cleaning, call mom. Gym tomorrow for sure!"]
     let canvas = FlippedView(frame: NSRect(x: 0, y: 0, width: 640, height: 760))
     var x: CGFloat = 10, y: CGFloat = 10, rowH: CGFloat = 0
     for (style, text) in zip(Style.allCases + [.cloud], samples) {

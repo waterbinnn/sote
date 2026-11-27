@@ -15,34 +15,34 @@ enum Style: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .cloud: "구름"
-        case .thought: "생각 구름"
-        case .bubble: "말풍선"
-        case .lime: "납작 구름"
-        case .oval: "타원"
-        case .heart: "하트"
-        case .burst: "뾰족"
-        case .rays: "반짝"
-        case .potato: "감자"
-        case .shout: "외침"
-        case .box: "네모"
+        case .cloud: "Cloud"
+        case .thought: "Thought Cloud"
+        case .bubble: "Speech Bubble"
+        case .lime: "Flat Cloud"
+        case .oval: "Oval"
+        case .heart: "Heart"
+        case .burst: "Spiky"
+        case .rays: "Sparkle"
+        case .potato: "Potato"
+        case .shout: "Shout"
+        case .box: "Square"
         }
     }
 
     /// 미리보기에 쓰는 짧은 문구.
     var sample: String {
         switch self {
-        case .cloud: "이거지예~!\n♡♡♡"
-        case .thought: "나혼자 소심한 반항 중"
-        case .bubble: "점심\n뭐 먹지?"
-        case .lime: "럭키한 하루♧♪"
-        case .oval: "경악스런 하루♡"
-        case .heart: "겠냐고"
-        case .burst: "내가 어떻게 알아"
-        case .rays: "네 ^_^.."
-        case .potato: "저는 그냥\n말하는\n감잔데요"
-        case .shout: "나는 디비지는\n중이다."
-        case .box: "이건\n아니지예"
+        case .cloud: "That's it~!\n♡♡♡"
+        case .thought: "Quietly rebelling"
+        case .bubble: "What's for\nlunch?"
+        case .lime: "Lucky day♧♪"
+        case .oval: "What a day♡"
+        case .heart: "As if"
+        case .burst: "How would I know"
+        case .rays: "Sure ^_^.."
+        case .potato: "I'm just\na talking\npotato"
+        case .shout: "Busy doing\nnothing."
+        case .box: "Nope,\nnot this"
         }
     }
 
@@ -221,10 +221,10 @@ enum Weight: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .light: "얇게"
-        case .regular: "보통"
-        case .bold: "굵게"
-        case .heavy: "아주 굵게"
+        case .light: "Light"
+        case .regular: "Regular"
+        case .bold: "Bold"
+        case .heavy: "Heavy"
         }
     }
 
@@ -250,9 +250,9 @@ enum Align: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .left: "왼쪽"
-        case .center: "가운데"
-        case .right: "오른쪽"
+        case .left: "Left"
+        case .center: "Center"
+        case .right: "Right"
         }
     }
 
@@ -269,9 +269,9 @@ let fontSizes: [CGFloat] = [10, 11, 12, 13, 14, 16, 18, 20, 24, 28, 32]
 
 /// 메모 색상 팔레트: 요즘 다꾸 스티커에서 많이 쓰는 우유 섞인 파스텔(버터·말차·딸기우유 톤).
 let palette: [(name: String, hex: Int)] = [
-    ("흰색", 0xFFFFFF), ("크림", 0xFFF4DE), ("버터", 0xFFE99E), ("딸기우유", 0xFFD6E0), ("체리핑크", 0xFFAEC6),
-    ("피치", 0xFFE3D3), ("살구우유", 0xFFD3B8), ("피스타치오", 0xDDEDC2), ("말차라테", 0xCBE5B8), ("민트", 0xCDEFE3),
-    ("베이비블루", 0xCFE4FF), ("페리윙클", 0xB4C8FF), ("라일락", 0xE2D4FF), ("라벤더", 0xC6B4F7), ("블랙", 0x1A1A1A),
+    ("White", 0xFFFFFF), ("Cream", 0xFFF4DE), ("Butter", 0xFFE99E), ("Strawberry Milk", 0xFFD6E0), ("Cherry Pink", 0xFFAEC6),
+    ("Peach", 0xFFE3D3), ("Apricot Milk", 0xFFD3B8), ("Pistachio", 0xDDEDC2), ("Matcha Latte", 0xCBE5B8), ("Mint", 0xCDEFE3),
+    ("Baby Blue", 0xCFE4FF), ("Periwinkle", 0xB4C8FF), ("Lilac", 0xE2D4FF), ("Lavender", 0xC6B4F7), ("Black", 0x1A1A1A),
 ]
 
 extension NSColor {

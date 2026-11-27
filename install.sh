@@ -13,7 +13,7 @@ mkdir -p "$DEST"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
-echo "Sote 내려받는 중..."
+echo "Downloading Sote..."
 curl -fsSL "$URL" -o "$TMP/Sote.zip"
 ditto -x -k "$TMP/Sote.zip" "$TMP"
 
@@ -22,5 +22,5 @@ ditto -x -k "$TMP/Sote.zip" "$TMP"
 rm -rf "$DEST/Sote.app"
 ditto "$TMP/Sote.app" "$DEST/Sote.app"
 
-echo "설치 완료: $DEST/Sote.app"
+echo "Installed: $DEST/Sote.app"
 [ -n "$SOTE_DEST" ] || open "$DEST/Sote.app"

@@ -19,7 +19,7 @@ extension App {
             do {
                 try await update()
             } catch {
-                alert("업데이트하지 못했습니다.", "\(error.localizedDescription)\n\n터미널에서 아래 명령을 실행해도 업데이트할 수 있습니다.\n\(Self.installCommand)")
+                alert("Couldn't update Sote.", "\(error.localizedDescription)\n\nYou can also update by running this command in Terminal:\n\(Self.installCommand)")
             }
         }
     }
@@ -32,22 +32,22 @@ extension App {
         request.httpMethod = "HEAD"
         let (_, response) = try await URLSession.shared.data(for: request)
         guard let final = response.url, final.deletingLastPathComponent().lastPathComponent == "tag" else {
-            throw UpdateError("최신 버전 정보를 읽지 못했습니다.")
+            throw UpdateError("Couldn't read the latest version info.")
         }
         let tag = final.lastPathComponent
         let latest = tag.hasPrefix("v") ? String(tag.dropFirst()) : tag
         guard latest.compare(current, options: .numeric) == .orderedDescending else {
-            alert("최신 버전을 사용하고 있습니다.", "지금 버전: \(current)")
+            alert("You're up to date.", "Current version: \(current)")
             return
         }
-        guard alert("새 버전 \(latest)이 나왔습니다.",
-                    "지금 버전은 \(current)입니다. 업데이트하면 Sote가 잠시 종료됐다가 다시 열립니다. 메모는 그대로 남습니다.",
-                    buttons: ["업데이트", "나중에"]) else { return }
+        guard alert("Sote \(latest) is available.",
+                    "You have \(current). Sote will quit and reopen during the update. Your notes will be kept.",
+                    buttons: ["Update", "Later"]) else { return }
 
         // 개발 빌드나, 다운로드 폴더에서 바로 연 앱(App Translocation)은 바꿔 끼울 수 없다.
         let app = Bundle.main.bundleURL
         guard app.pathExtension == "app", FileManager.default.isWritableFile(atPath: app.deletingLastPathComponent().path) else {
-            throw UpdateError("\(app.path) 위치에서는 앱을 바꿀 수 없습니다.")
+            throw UpdateError("Can't replace the app at \(app.path). Move Sote to the Applications folder and try again.")
         }
 
         // 개발용: SOTE_UPDATE_ZIP 으로 내려받을 zip 을 바꿔서 업데이트 과정을 시험한다.
@@ -59,7 +59,7 @@ extension App {
         try await fetch(zip).write(to: file)
         try run("/usr/bin/ditto", "-x", "-k", file.path, dir.path)
         let new = dir.appendingPathComponent("Sote.app")
-        guard FileManager.default.fileExists(atPath: new.path) else { throw UpdateError("내려받은 파일에 Sote.app이 없습니다.") }
+        guard FileManager.default.fileExists(atPath: new.path) else { throw UpdateError("The download doesn't contain Sote.app.") }
 
         // 앱이 완전히 종료된 뒤에 바꿔 끼우고 다시 연다. 복사가 끝나기 전에는 기존 앱을 지우지 않는다.
         let script = """
@@ -78,7 +78,7 @@ extension App {
     private func fetch(_ url: URL) async throws -> Data {
         let (data, response) = try await URLSession.shared.data(from: url)
         if let http = response as? HTTPURLResponse, http.statusCode != 200 {
-            throw UpdateError("서버 응답 오류(\(http.statusCode))가 발생했습니다. 잠시 뒤에 다시 시도해 주세요.")
+            throw UpdateError("Server error (\(http.statusCode)). Please try again later.")
         }
         return data
     }
@@ -89,11 +89,11 @@ extension App {
         p.arguments = args
         try p.run()
         p.waitUntilExit()
-        guard p.terminationStatus == 0 else { throw UpdateError("압축을 풀지 못했습니다.") }
+        guard p.terminationStatus == 0 else { throw UpdateError("Couldn't unzip the download.") }
     }
 
     @MainActor @discardableResult
-    private func alert(_ title: String, _ text: String, buttons: [String] = ["확인"]) -> Bool {
+    private func alert(_ title: String, _ text: String, buttons: [String] = ["OK"]) -> Bool {
         NSApp.activate()
         let a = NSAlert()
         a.messageText = title
