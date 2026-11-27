@@ -22,8 +22,7 @@ curl -fsSL https://raw.githubusercontent.com/waterbinnn/sote/main/install.sh | s
 <summary>zip 파일로 직접 설치하기</summary>
 
 [Releases](https://github.com/waterbinnn/sote/releases)에서 `Sote.zip`을 받아 `Sote.app`을 응용 프로그램 폴더로 옮깁니다.
-아직 공증(notarize)되지 않은 앱이라, 브라우저로 받으면 처음 열 때 macOS가 막습니다.
-**시스템 설정 → 개인정보 보호 및 보안**에서 "그래도 열기"를 한 번 눌러 주세요.
+Developer ID로 서명하고 Apple 공증(notarize)을 받은 앱이라 경고 없이 바로 열립니다.
 
 </details>
 
@@ -34,3 +33,6 @@ macOS 14 이상, Xcode(또는 Swift 툴체인)가 필요합니다.
 ```sh
 ./build.sh && open Sote.app
 ```
+
+키체인에 Developer ID 인증서가 있으면 그것으로 서명하고, 없으면 임시(ad-hoc) 서명합니다.
+배포용으로 공증받은 `Sote.zip`을 만들려면 `./release.sh`를 실행합니다(사용법은 파일 맨 위 주석 참고).

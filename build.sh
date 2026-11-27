@@ -34,5 +34,15 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>NSHighResolutionCapable</key><true/>
 </dict></plist>
 PLIST
-codesign --force -s - "$APP"
+# 서명: 키체인에 Developer ID 인증서가 있으면 그것으로(공증 가능), 없으면 임시(ad-hoc) 서명.
+# 다른 인증서를 쓰려면 SIGN_ID="..." ./build.sh
+SIGN_ID="${SIGN_ID:-$(security find-identity -v -p codesigning | sed -n 's/.*"\(Developer ID Application: .*\)"/\1/p' | head -1)}"
+if [ -n "$SIGN_ID" ] && [ "$SIGN_ID" != "-" ]; then
+  # 공증을 받으려면 hardened runtime(--options runtime)과 보안 타임스탬프가 필요하다.
+  codesign --force --options runtime --timestamp -s "$SIGN_ID" "$APP"
+  echo "signed with $SIGN_ID"
+else
+  codesign --force -s - "$APP"
+  echo "ad-hoc signed (Developer ID 인증서 없음, 공증 불가)"
+fi
 echo "built $APP"
