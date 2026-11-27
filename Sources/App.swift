@@ -118,7 +118,7 @@ final class App: NSObject, NSApplicationDelegate {
         return menu
     }
 
-    /// 글자 크기·굵기 하위 메뉴.
+    /// 글자 크기·굵기·정렬 하위 메뉴.
     private func textItems(target: AnyObject?) -> [NSMenuItem] {
         let size = NSMenuItem(title: "글자 크기", action: nil, keyEquivalent: "")
         size.submenu = NSMenu()
@@ -135,7 +135,14 @@ final class App: NSObject, NSApplicationDelegate {
             i.representedObject = w.rawValue
             i.target = target
         }
-        return [size, weight]
+        let align = NSMenuItem(title: "글자 정렬", action: nil, keyEquivalent: "")
+        align.submenu = NSMenu()
+        for a in Align.allCases {
+            let i = align.submenu!.addItem(withTitle: a.title, action: #selector(NoteWindow.changeAlign(_:)), keyEquivalent: "")
+            i.representedObject = a.rawValue
+            i.target = target
+        }
+        return [size, weight, align]
     }
 
     private func colorsItem(target: AnyObject?) -> NSMenuItem {

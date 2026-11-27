@@ -10,6 +10,7 @@ struct NoteData: Codable {
     var color: Int?          // nil 이면 모양의 추천 색
     var fontSize: CGFloat?   // nil 이면 12
     var weight: Weight?      // nil 이면 보통
+    var align: Align?        // nil 이면 가운데
 }
 
 /// 메모 한 장 = 테두리 없는 투명 창 하나.
@@ -22,6 +23,7 @@ final class NoteWindow: NSWindow, NSWindowDelegate {
         noteView = NoteView(style: data.style, text: data.text)
         noteView.fontSize = data.fontSize ?? 12
         noteView.weight = data.weight ?? .regular
+        noteView.align = data.align ?? .center
         noteView.color = data.color.map { NSColor(hex: $0) }
         super.init(contentRect: data.frame, styleMask: [.borderless], backing: .buffered, defer: false)
         isOpaque = false
@@ -72,6 +74,12 @@ final class NoteWindow: NSWindow, NSWindowDelegate {
         noteView.growToFitText()
     }
 
+    @objc func changeAlign(_ sender: NSMenuItem) {
+        guard let align = Align(rawValue: sender.representedObject as? String ?? "") else { return }
+        data.align = align
+        noteView.align = align
+    }
+
     /// representedObject 가 nil 이면 모양의 기본색으로 되돌린다.
     @objc func changeColor(_ sender: NSMenuItem) {
         data.color = sender.representedObject as? Int
@@ -106,6 +114,7 @@ final class NoteWindow: NSWindow, NSWindowDelegate {
         case #selector(changeColor(_:)): item.state = item.representedObject as? Int == data.color ? .on : .off
         case #selector(changeFontSize(_:)): item.state = item.representedObject as? CGFloat == (data.fontSize ?? 12) ? .on : .off
         case #selector(changeWeight(_:)): item.state = item.representedObject as? String == (data.weight ?? .regular).rawValue ? .on : .off
+        case #selector(changeAlign(_:)): item.state = item.representedObject as? String == (data.align ?? .center).rawValue ? .on : .off
         default: return super.validateMenuItem(item)
         }
         return true
@@ -120,6 +129,7 @@ final class NoteView: NSView, NSTextViewDelegate {
     var style: Style { didSet { applyStyle() } }
     var fontSize: CGFloat = 12 { didSet { applyStyle() } }
     var weight: Weight = .regular { didSet { applyStyle() } }
+    var align: Align = .center { didSet { applyStyle() } }
     var color: NSColor? { didSet { applyStyle() } }
     private var fill: NSColor { color ?? style.fill }
     var onTextChange: ((String) -> Void)?
@@ -158,7 +168,7 @@ final class NoteView: NSView, NSTextViewDelegate {
 
     private var attributes: [NSAttributedString.Key: Any] {
         let para = NSMutableParagraphStyle()
-        para.alignment = .center
+        para.alignment = align.ns
         para.lineHeightMultiple = 1.12
         para.lineBreakStrategy = .hangulWordPriority
         var a: [NSAttributedString.Key: Any] = [.font: weight.font(size: fontSize), .foregroundColor: fill.readableText, .paragraphStyle: para]

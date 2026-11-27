@@ -245,6 +245,26 @@ enum Weight: String, Codable, CaseIterable {
     }
 }
 
+enum Align: String, Codable, CaseIterable {
+    case left, center, right
+
+    var title: String {
+        switch self {
+        case .left: "왼쪽"
+        case .center: "가운데"
+        case .right: "오른쪽"
+        }
+    }
+
+    var ns: NSTextAlignment {
+        switch self {
+        case .left: .left
+        case .center: .center
+        case .right: .right
+        }
+    }
+}
+
 let fontSizes: [CGFloat] = [10, 11, 12, 13, 14, 16, 18, 20, 24, 28, 32]
 
 /// 메모 색상 팔레트: 요즘 다꾸 스티커에서 많이 쓰는 우유 섞인 파스텔(버터·말차·딸기우유 톤).

@@ -19,7 +19,7 @@ if let i = CommandLine.arguments.firstIndex(of: "--snapshot"), i + 1 < CommandLi
         let v = NoteView(style: style, text: text)
         v.frame = NSRect(origin: NSPoint(x: x, y: y), size: size)
         canvas.addSubview(v)
-        if text.count > 30 { v.color = NSColor(hex: 0xA08CF0); v.fontSize = 16; v.weight = .bold }  // 색·크기·굵기 지정 확인용
+        if text.count > 30 { v.color = NSColor(hex: 0xA08CF0); v.fontSize = 16; v.weight = .bold; v.align = .left }  // 색·크기·굵기·정렬 지정 확인용
         v.growToFitText()
         x += size.width + 10
         rowH = max(rowH, size.height)
