@@ -34,7 +34,7 @@ enum Style: String, Codable, CaseIterable {
         switch self {
         case .cloud: "이거지예~!\n♡♡♡"
         case .thought: "나혼자 소심한 반항 중"
-        case .bubble: "어디서\n미인계야?"
+        case .bubble: "점심\n뭐 먹지?"
         case .lime: "럭키한 하루♧♪"
         case .oval: "경악스런 하루♡"
         case .heart: "겠냐고"
@@ -271,7 +271,7 @@ let fontSizes: [CGFloat] = [10, 11, 12, 13, 14, 16, 18, 20, 24, 28, 32]
 let palette: [(name: String, hex: Int)] = [
     ("흰색", 0xFFFFFF), ("크림", 0xFFF4DE), ("버터", 0xFFE99E), ("딸기우유", 0xFFD6E0), ("체리핑크", 0xFFAEC6),
     ("피치", 0xFFE3D3), ("살구우유", 0xFFD3B8), ("피스타치오", 0xDDEDC2), ("말차라테", 0xCBE5B8), ("민트", 0xCDEFE3),
-    ("베이비블루", 0xCFE4FF), ("페리윙클", 0xB4C8FF), ("라일락", 0xE2D4FF), ("라벤더", 0xC6B4F7),
+    ("베이비블루", 0xCFE4FF), ("페리윙클", 0xB4C8FF), ("라일락", 0xE2D4FF), ("라벤더", 0xC6B4F7), ("블랙", 0x1A1A1A),
 ]
 
 extension NSColor {

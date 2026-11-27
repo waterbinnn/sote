@@ -93,8 +93,6 @@ final class NoteWindow: NSWindow, NSWindowDelegate {
         noteView.growToFitText()
     }
 
-    @objc func zoomIn(_ sender: Any?) { zoom(by: 1.15) }
-    @objc func zoomOut(_ sender: Any?) { zoom(by: 1 / 1.15) }
 
     @objc func deleteNote(_ sender: Any?) {
         if !data.text.isEmpty {

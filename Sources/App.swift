@@ -114,6 +114,7 @@ final class App: NSObject, NSApplicationDelegate {
         menu.addItem(.separator())
         menu.addItem(withTitle: "메모 모두 앞으로 가져오기", action: #selector(bringAllToFront(_:)), keyEquivalent: "").target = self
         menu.addItem(.separator())
+        menu.addItem(withTitle: "업데이트 확인…", action: #selector(checkForUpdates(_:)), keyEquivalent: "").target = self
         menu.addItem(withTitle: "Sote 종료", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         return menu
     }
@@ -174,8 +175,6 @@ final class App: NSObject, NSApplicationDelegate {
         menu.addItem(colorsItem(target: window))
         textItems(target: window).forEach(menu.addItem)
         menu.addItem(withTitle: "항상 위에 고정", action: #selector(NoteWindow.toggleOnTop(_:)), keyEquivalent: "").target = window
-        menu.addItem(withTitle: "모양 크게", action: #selector(NoteWindow.zoomIn(_:)), keyEquivalent: "").target = window
-        menu.addItem(withTitle: "모양 작게", action: #selector(NoteWindow.zoomOut(_:)), keyEquivalent: "").target = window
         menu.addItem(.separator())
         menu.addItem(stylesItem("새 메모", action: #selector(newNoteWithStyle(_:)), target: self))
         menu.addItem(withTitle: "메모 삭제", action: #selector(NoteWindow.deleteNote(_:)), keyEquivalent: "").target = window
@@ -195,7 +194,9 @@ final class App: NSObject, NSApplicationDelegate {
             return i
         }
 
-        submenu("Sote", [item("Sote 종료", "terminate:", "q")])
+        let update = item("업데이트 확인…", "checkForUpdates:", "")
+        update.target = self
+        submenu("Sote", [update, .separator(), item("Sote 종료", "terminate:", "q")])
         let new = item("새 메모", "newNote:", "n")
         new.target = self
         submenu("메모", [
@@ -206,8 +207,6 @@ final class App: NSObject, NSApplicationDelegate {
             colorsItem(target: nil),
         ] + textItems(target: nil) + [
             item("항상 위에 고정", "toggleOnTop:", "t"),
-            item("모양 크게", "zoomIn:", "="),
-            item("모양 작게", "zoomOut:", "-"),
             .separator(),
             item("메모 삭제", "deleteNote:", ""),
         ])
