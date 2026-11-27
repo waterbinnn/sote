@@ -10,21 +10,31 @@
 
 ## 설치
 
-Apple Silicon Mac, macOS 14 이상. 터미널에 아래 한 줄을 붙여 넣으면 응용 프로그램 폴더에 설치되고 바로 실행됩니다.
+Apple Silicon Mac, macOS 14 이상에서 실행됩니다. Apple 공증(notarize)을 받은 앱이라 보안 경고 없이 열립니다.
+
+### 내려받아 설치
+
+1. [**Sote.zip 내려받기**](https://github.com/waterbinnn/sote/releases/latest/download/Sote.zip)
+2. 압축을 풀고 `Sote.app`을 **응용 프로그램** 폴더로 옮깁니다.
+3. 응용 프로그램 폴더에서 Sote를 엽니다. 메뉴바에 아이콘이 생깁니다.
+
+다운로드 폴더에서 바로 열면 나중에 앱 안에서 업데이트할 수 없으니, 꼭 응용 프로그램 폴더로 옮긴 뒤 여세요.
+
+### 터미널로 설치
+
+아래 한 줄을 붙여 넣으면 응용 프로그램 폴더에 설치하고 바로 실행합니다.
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/waterbinnn/sote/main/install.sh | sh
 ```
 
-1.2.0부터는 메뉴바 아이콘이나 Sote 메뉴의 **업데이트 확인…** 을 누르면 새 버전으로 업데이트됩니다. 그 전 버전은 같은 명령을 한 번 더 실행해 주세요. 메모는 그대로 남습니다.
+### 업데이트
 
-<details>
-<summary>zip 파일로 직접 설치하기</summary>
+메뉴바 아이콘이나 Sote 메뉴의 **업데이트 확인…** 을 누르세요. 1.2.0보다 오래된 버전은 이 메뉴가 없으니 위 설치 방법 중 하나로 다시 설치하면 됩니다. 어느 경우든 메모는 그대로 남습니다.
 
-[Releases](https://github.com/waterbinnn/sote/releases)에서 `Sote.zip`을 받아 `Sote.app`을 응용 프로그램 폴더로 옮깁니다.
-Developer ID로 서명하고 Apple 공증(notarize)을 받은 앱이라 경고 없이 바로 열립니다.
+### 삭제
 
-</details>
+응용 프로그램 폴더의 `Sote.app`을 휴지통으로 옮깁니다. 메모까지 지우려면 `~/Library/Preferences/app.sote.note.plist`도 지우세요.
 
 ## 직접 빌드
 
